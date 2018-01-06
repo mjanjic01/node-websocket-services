@@ -1,11 +1,12 @@
 const WebSocket = require('ws');
 
+const drawing = require('./drawing');
+
 const SUBPROTOCOLS = {
-  drawing: require('./drawing')
+  drawing
 };
 
 module.exports = (server) => {
-
   const wss = new WebSocket.Server({
     server,
     handleProtocols(protocols) {
@@ -21,5 +22,4 @@ module.exports = (server) => {
   wss.on('connection', (ws) => {
     SUBPROTOCOLS[ws.protocol](ws);
   });
-
 };
