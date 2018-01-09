@@ -1,9 +1,9 @@
 const WebSocket = require('ws');
 
-const drawing = require('./drawing');
+const chat = require('./chat');
 
 const SUBPROTOCOLS = {
-  drawing
+  chat
 };
 
 module.exports = (server) => {

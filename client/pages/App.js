@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
-import Whiteboard from '../components/Whiteboard';
+import MessageList from '../components/MessageList';
 
 import SocketService from '../services/websocket';
 
 class App extends Component {
   componentWillMount() {
-    this.drawingService = new SocketService('drawing');
+    this.chatService = new SocketService('chat');
   }
 
   render() {
     return (
-      <div>
-        <Whiteboard />
-      </div>
+      <Fragment>
+        <MessageList />
+      </Fragment>
     );
   }
 }

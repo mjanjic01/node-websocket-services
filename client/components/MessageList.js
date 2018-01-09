@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
+import { withStyles } from 'material-ui/styles';
+
+import Button from 'material-ui/Button';
+
+import Message from './Message';
 
 const styles = {
   wrapper: {
@@ -12,19 +16,23 @@ const styles = {
   }
 };
 
-class Whiteboard extends Component {
+class MessageList extends Component {
   render() {
     const { classes } = this.props;
+
     return (
       <div className={classes.wrapper}>
-        <canvas></canvas>
+        <Button>HAHA</Button>
+        <Message />
+        <Message />
+        <Message />
       </div>
     );
   }
 }
 
-Whiteboard.propTypes = {
+MessageList.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default injectSheet(styles)(Whiteboard);
+export default withStyles(styles)(MessageList);
