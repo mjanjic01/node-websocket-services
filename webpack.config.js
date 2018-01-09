@@ -25,7 +25,7 @@ const config = {
   entry: './client/application.js',
 
   output: {
-    publicPath: '/',
+    publicPath: '/assets',
     path: path.resolve(__dirname, './server/public/assets'),
     filename: '[name]-[hash].js'
   },
