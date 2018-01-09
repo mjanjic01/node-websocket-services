@@ -2,37 +2,47 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 
-import Button from 'material-ui/Button';
-
 import Message from './Message';
 
 const styles = {
   wrapper: {
-    backgroundColor: 'yellow',
-    height: '200px'
-  },
-  label: {
-    fontWeight: 'bold'
+    'overflow-y': 'scroll',
+    'overflow-x': 'hidden',
+    height: '100%',
+    padding: '10px',
+    'background-color': '#F2F2F2'
   }
 };
 
 class MessageList extends Component {
+  componentDidUpdate(newProps) {
+    if (this.props.messages.length !== newProps.messages.length) {
+      this.container.scrollTop = this.container.scrollHeight;
+    }
+  }
+
   render() {
-    const { classes } = this.props;
+    const { classes, messages } = this.props;
 
     return (
-      <div className={classes.wrapper}>
-        <Button>HAHA</Button>
-        <Message />
-        <Message />
-        <Message />
+      <div
+        ref={(container) => { this.container = container; }}
+        className={classes.wrapper}
+      >
+        {messages.map((message, index) => (
+          <Message
+            key={index}
+            direction={message.direction}
+            text={message.text}
+          />))}
       </div>
     );
   }
 }
 
 MessageList.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  messages: PropTypes.array
 };
 
 export default withStyles(styles)(MessageList);

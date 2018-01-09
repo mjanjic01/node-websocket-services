@@ -21,7 +21,7 @@ export default class SocketService {
   }
 
   onMessageEvent(callback) {
-    this.socket.addEventListener('message', callback);
+    this.socket.addEventListener('message', ({ data }) => callback(JSON.parse(data)));
   }
 
   onErrorEvent(callback) {
