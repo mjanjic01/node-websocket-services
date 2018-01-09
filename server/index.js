@@ -5,16 +5,10 @@ const http = require('http');
  * Module dependencies.
  */
 const express = require('express');
-const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const chalk = require('chalk');
 const errorHandler = require('errorhandler');
 const helmet = require('helmet');
-
-/**
- * Load environment variables from .env file, where API keys and passwords are configured.
- */
-dotenv.config();
 
 /**
  * Create Express server.
@@ -22,24 +16,35 @@ dotenv.config();
 const app = express();
 
 /**
- * Get api controllers
+ * Inject webpack dev middleware
  */
-// const api = require('./api');
+/* eslint-disable global-require, import/no-extraneous-dependencies */
+if (process.env.NODE_ENV === 'development') {
+  const webpack = require('webpack');
+  const middleware = require('webpack-dev-middleware');
+
+  const options = require('../webpack.config');
+  const compiler = webpack(options);
+
+  app.use(middleware(compiler, {
+    publicPath: options.output.publicPath
+  }));
+} else {
+
+}
+/* eslint-enable global-require, import/no-extraneous-dependencies */
+
 
 /**
  * Express configuration.
  */
 app.set('port', process.env.PORT || 3000);
-app.use(helmet());
+// app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, './public')));
 
-/**
- * Register API Routes
- */
-// app.use('/api', api);
 
 
 /**
