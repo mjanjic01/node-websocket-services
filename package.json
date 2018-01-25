@@ -9,7 +9,7 @@
     "__eslint": "eslint server client",
     "build:client": "webpack --progress",
     "dev": "NODE_ENV='development' nodemon --watch server/ --ignore server/public/ --inspect server/index.js",
-    "start": "NODE_ENV='production' build:client && node server/index.js"
+    "start": "NODE_ENV='production' npm run build:client && node server/index.js"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
